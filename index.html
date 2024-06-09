@@ -31,6 +31,16 @@
             const oUserEdit = (row, column) => board[row][column]--;
             
             const checkBoard = () => {
+                let tieCounter = 0;
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (board[i][j] != 0) tieCounter ++;
+                    }
+                }
+
+                if (tieCounter == 9) return tieCounter;
+
+                
                 for (let i = 0; i < 3; i++) {
                     let rowcounter = 0;
                     for (let j = 0; j < 3; j++) {
@@ -91,7 +101,7 @@
                 
 
                     const result = leBoard.checkBoard();
-                    if (result !== 0) {
+                    if (result != 0) {
                         playAgainP(result);
                         leBoard.clearBoard();
                     }
@@ -111,8 +121,10 @@
                 const playAgainText = document.createElement('div');
                 if (result == 3) {
                     playAgainText.textContent = "X wins!";
-                } else {
+                } else if (result == -3) {
                     playAgainText.textContent = "O wins!";
+                } else {
+                    playAgainText.textContent = "No one wins!"
                 }
                 const playAgainButton = document.createElement('button');
                 playAgainButton.textContent = "Play Again";
