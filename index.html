@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>Tic Tac Toe</header>
+    <main>
+        <div id="board">
+            <div class="cell" data-row="0" data-column="0"></div>
+            <div class="cell" data-row="0" data-column="1"></div>
+            <div class="cell" data-row="0" data-column="2"></div>
+            <div class="cell" data-row="1" data-column="0"></div>
+            <div class="cell" data-row="1" data-column="1"></div>
+            <div class="cell" data-row="1" data-column="2"></div>
+            <div class="cell" data-row="2" data-column="0"></div>
+            <div class="cell" data-row="2" data-column="1"></div>
+            <div class="cell" data-row="2" data-column="2"></div>
+        </div>
+        <div class="playagain"></div>
+    </main>
+    <footer>Dean Liang</footer>
+    <script>
+        function gameBoard() {
+            let board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+            
+            const userEdit = (row, column) => board[row][column]++;
+            const oUserEdit = (row, column) => board[row][column]--;
+            
+            const checkBoard = () => {
+                for (let i = 0; i < 3; i++) {
+                    let rowcounter = 0;
+                    for (let j = 0; j < 3; j++) {
+                        rowcounter += board[i][j];
+                    }
+                    if (Math.abs(rowcounter) == 3) return rowcounter;
+                }
+                // check rows
+
+                for (let i = 0; i < 3; i++) {
+                    let columncounter = 0;
+                    for (let j = 0; j < 3; j++) {
+                        columncounter += board[j][i];
+                    }
+                    if (Math.abs(columncounter) == 3) return columncounter;
+                }
+                // check columns
+                
+                let crosscounter1 = 0;
+                let crosscounter2 = 0;
+                for (let i = 0; i < 3; i++) {
+                    crosscounter1 += board[i][i];
+                    crosscounter2 += board[i][2 - i];
+                }
+                if (Math.abs(crosscounter1) == 3) return crosscounter1;
+                if (Math.abs(crosscounter2) == 3) return crosscounter2;
+                
+                return 0; // No winner yet
+            };
+
+            const printBoard = () => console.log(board);
+
+            const clearBoard = () => board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+            
+            return {userEdit, oUserEdit, checkBoard, printBoard, clearBoard};
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const leBoard = gameBoard();
+            const cells = document.querySelectorAll(".cell");
+            let count = 0;
+
+            cells.forEach(cell => {
+                cell.addEventListener("click", () => {
+                    const row = parseInt(cell.dataset.row);
+                    const column = parseInt(cell.dataset.column);
+                    if (count === 0) {
+                        leBoard.userEdit(row, column);
+                        cell.textContent = "X"; // assuming "X" is for the user
+                        count ++;
+                    } else {
+                        leBoard.oUserEdit(row,column);
+                        cell.textContent = "O"
+                        count = 0;
+                    }
+                 
+                    cell.style.pointerEvents = "none"; // prevent further clicks on this cell
+                
+
+                    const result = leBoard.checkBoard();
+                    if (result !== 0) {
+                        playAgainP(result);
+                        leBoard.clearBoard();
+                    }
+                });
+            });
+            function playAgainP (result) {
+                cells.forEach(cell => {
+                    cell.style.display = 'none';
+                    cell.textContent = "";
+                    cell.style.pointerEvents = "none";
+                });
+                createPaText(result);
+            }
+
+            function createPaText(result) {
+                const container = document.querySelector('.playagain');
+                const playAgainText = document.createElement('div');
+                if (result == 3) {
+                    playAgainText.textContent = "X wins!";
+                } else {
+                    playAgainText.textContent = "O wins!";
+                }
+                const playAgainButton = document.createElement('button');
+                playAgainButton.textContent = "Play Again";
+                playAgainText.classList.add('new-game-text');
+                playAgainButton.classList.add('play-again-button');
+
+                container.appendChild(playAgainText);
+                container.appendChild(playAgainButton);
+
+                playAgainButton.addEventListener('click', () => {
+                    container.removeChild(playAgainButton);
+                    container.removeChild(playAgainText);
+                    cells.forEach(cell => {
+                        cell.style.display = 'flex';
+                        cell.style.pointerEvents = "auto";
+                    });
+                })
+
+                
+            }
+        });
+
+    </script>
+</body>
+</html>
