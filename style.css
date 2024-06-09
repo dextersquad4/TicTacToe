@@ -1,0 +1,98 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+
+header {
+    background-color: rgb(191, 191, 191);
+    padding: 30px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 12px 24px;
+    font-size: 24px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+main {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, min(170px, 18vw));
+    grid-template-rows: repeat(3, min(170px, 18vw));
+    gap: 16px;
+}
+
+.cell {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 900;
+    font-size: 90px;
+}
+
+.cell:hover {
+    background-color: #f0f0f0;
+}
+
+footer {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gainsboro;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.new-game-text {
+    font-size: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.play-again-button {
+    background-color: #ff6347; /* Example button color: Tomato */
+    color: white; /* Text color */
+    border: none; /* No border */
+    padding: 20px 40px; /* Padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+    border-radius: 5px; /* Slightly rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow */
+    margin-top: 40px;
+    font-size: 24px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.play-again-button:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+} 
+
+.playagain {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
